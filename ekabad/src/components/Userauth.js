@@ -1,5 +1,5 @@
 import React from "react";
-import * as Components from "./Components";
+import * as Components from "./Component";
 // import { GoogleAuthProvider } from "@firebase/auth";
 const Userauth = () => {
   const [signIn, toggle] = React.useState(true);
