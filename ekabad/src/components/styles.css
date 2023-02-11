@@ -1,0 +1,22 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  #hello-friend {
+    margin-left: 16px;
+  }
+  #leftGhostButton {
+    background-color: transparent;
+    border-color: #ffffff;
+    margin-top: auto;
+    margin-bottom: 100px;
+    margin-left: 120px;
+    margin-right: auto;
+  }
+  
