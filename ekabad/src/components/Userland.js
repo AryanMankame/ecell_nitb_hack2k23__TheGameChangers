@@ -1,40 +1,35 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 const Userland = () => {
+    const [file, setFile] = useState('');
+    function handleChange(e) {
+        console.log(e.target.files);
+        setFile(URL.createObjectURL(e.target.files[0]));
+    }
   return (
     <Page>
       <Left>
-        <img src="https://img.freepik.com/free-photo/tree-with-blurred-background_1339-3057.jpg?size=626&ext=jpg&ga=GA1.2.1150275853.1672506901&semt=sph"></img>
+        {/* <img src="https://img.freepik.com/free-photo/tree-with-blurred-background_1339-3057.jpg?size=626&ext=jpg&ga=GA1.2.1150275853.1672506901&semt=sph"></img> */}
       </Left>
       <Right>
         <Upload>
-        <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
-    <input type="file" class="hidden" x-ref="photo" x-on:change="
-                        photoName = $refs.photo.files[0].name;
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            photoPreview = e.target.result;
-                        };
-                        reader.readAsDataURL($refs.photo.files[0]);
-    " />
-
-    <label class="block text-gray-700 text-sm font-bold mb-2 text-center" for="photo">
-        Profile Photo <span class="text-red-600"> </span>
-    </label>
-    
-    <div class="text-center">
-        <div class="mt-2" x-show={! photoPreview}>
-            <img src="https://images.unsplash.com/photo-1531316282956-d38457be0993?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80" class="w-40 h-40 m-auto rounded-full shadow" />
+        <div class="upload-area__header">
+        <h1 class="upload-area__title">Upload your file</h1>
+        <p class="upload-area__paragraph">
+        File should be an image
+        <strong class="upload-area__tooltip">
+        Like
+        <span class="upload-area__tooltip-data"></span>
+        </strong>
+        </p>
         </div>
-        <div class="mt-2" x-show="photoPreview" style="display: none;">
-            <span class="block w-40 h-40 rounded-full m-auto shadow" x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'" style="background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('null');">
-            </span>
-        </div>
-        <button type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-400 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 mt-2 ml-3">
-            Select New Photo
-        </button>
-    </div>
-</div>
+        {file === '' ?
+        <label for = "file-inp">
+            <img src = "https://img.icons8.com/dusk/1x/upload.png" alt = ""></img>
+        </label>: <></>
+        }
+        <input id = "file-inp" type="file" onChange={handleChange} />
+        <img className = "upload-img" src={file} alt=""/>
         </Upload>
         <Quant>
           <div>Enter the quantity : </div>
@@ -59,7 +54,7 @@ const Page = styled.div`
 const Left = styled.div`
   width: 60%;
   height: 100vh;
-  background-color: white;
+  background-color: darkblue;
   img {
     height: 100%;
     width: 100%;
@@ -78,9 +73,27 @@ const Upload = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
-  height: 200px;
+  height: 40vh;
   margin-top: 15vh;
   background-color: white;
+  #file-inp{
+    visibility:hidden;
+  }
+  input{
+    // background-image: url(https://img.icons8.com/dusk/1x/upload.png);
+    // background-repeat: no-repeat;
+    // background-position: 0;
+    // padding:0;
+    background-color:red;
+    color:pink;
+  }
+  .upload-img{
+    height:100%;
+    width:200px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:1pc;
+  }
 `;
 const Quant = styled.div`
   display: flex;
