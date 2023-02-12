@@ -29,7 +29,7 @@ const Userland = () => {
         </label>: <></>
         }
         <input id = "file-inp" type="file" onChange={handleChange} />
-        <img className = "upload-img" src={file} alt=""/>
+        {file !== '' ? <img className = "upload-img" src={file} /> : <></>}
         </Upload>
         <Quant>
           <div>Enter the quantity : </div>
