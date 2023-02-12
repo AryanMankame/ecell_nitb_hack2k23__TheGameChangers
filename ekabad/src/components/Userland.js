@@ -9,6 +9,7 @@ const Userland = () => {
   return (
     <Page>
       <Left>
+
         {/* <img src="https://img.freepik.com/free-photo/tree-with-blurred-background_1339-3057.jpg?size=626&ext=jpg&ga=GA1.2.1150275853.1672506901&semt=sph"></img> */}
       </Left>
       <Right>

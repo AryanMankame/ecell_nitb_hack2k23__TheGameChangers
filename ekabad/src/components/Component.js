@@ -83,6 +83,7 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
+  margin-top:10px;
 `;
 export const GhostButton = styled(Button)`
   background-color: transparent;
