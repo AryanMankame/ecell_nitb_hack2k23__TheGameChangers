@@ -1,16 +1,55 @@
 import React,{useState} from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+function generateRandomIntegerInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+let price = generateRandomIntegerInRange(40, 70);
 const Userland = () => {
-    const [file, setFile] = useState('');
-    function handleChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
+    const navigate = useNavigate();
+    const [file, setFile] = useState('')
+    const [showFile,setshowfile] = useState('');
+    const [data,setdata] = useState([]);
+    const [show,setshow] = useState(false);
+    const item1 = new Set();
+    console.log(file)
+    const handleFile = (e) => {
+        let file = e.target.files[0];
+        setshowfile(file);
+        setFile(URL.createObjectURL(file))
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', showFile)
+        axios.post('https://CornsilkUnknownServer.freestorage.repl.co/', formData).then(res => {
+            let temp = JSON.parse(JSON.stringify(res.data));
+            console.log(temp,typeof(temp));
+            setdata(temp);
+            setshow(true);
+            // console.log(item1);
+        })
     }
   return (
     <Page>
       <Left>
-
-        {/* <img src="https://img.freepik.com/free-photo/tree-with-blurred-background_1339-3057.jpg?size=626&ext=jpg&ga=GA1.2.1150275853.1672506901&semt=sph"></img> */}
+        <div id = "logo-div">
+        <img id = "logo" src="elogopn-removebg-preview.png"></img>
+        </div>
+        <img id = "left-img" src="kisspng-waste-management-smart-city-municipal-solid-waste-waste-management-of-oregon-inc-5b297d89d784e2.5791379115294457698828.png"></img>
+        <div id = "content">
+        <div>
+        Did you know that 40% of recyclable waste ends up being uncollected/littered, which results in pollution and harms our environment in unimaginable ways.
+        </div>
+         <div>
+         If u want to do your part for protecting our Mother Earth and at the same time earn significant amount from your what u thought was just “waste”
+         </div>
+        <div id = "join-us">
+          Join us !! All u have to do is click a photo of your waste items !!
+        </div>
+        </div>
       </Left>
       <Right>
         <Upload>
@@ -29,16 +68,15 @@ const Userland = () => {
             <img src = "https://img.icons8.com/dusk/1x/upload.png" alt = ""></img>
         </label>: <></>
         }
-        <input id = "file-inp" type="file" onChange={handleChange} />
-        {file !== '' ? <img className = "upload-img" src={file} /> : <></>}
+        <input id = "file-inp" type="file" onChange={handleFile} />
+        {file !== '' ? <img className = "upload-img" src={file} alt="img"/> : <></>}
         </Upload>
-        <Quant>
-          <div>Enter the quantity : </div>
-          <input type="text" className="underLine"></input>
-        </Quant>
         <Predict>
-          <button className="pred-btn">Predict</button>
+          <button className="pred-btn" onClick={handleSubmit}>Predict</button>
+          <button className="pred-btn" onClick={() => {navigate('/form')}}>SELL</button>
         </Predict>
+        <div>{data}</div>
+        <div>{show === true ? <div style={{marginTop:20}}>Your Expected Price for this sale will be: {price}</div> : <></>}</div>
       </Right>
     </Page>
   );
@@ -55,10 +93,38 @@ const Page = styled.div`
 const Left = styled.div`
   width: 60%;
   height: 100vh;
-  background-color: darkblue;
-  img {
-    height: 100%;
-    width: 100%;
+  background: linear-gradient( to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1) );;
+  #logo{
+    height:15vh;
+    width:30%;
+    // margin-left:auto;
+  }
+  #logo-div{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+  }
+  #left-img{
+    margin-top:4vh;
+    height:35vh;
+    margin-left:15vw;
+  }
+  #content{
+    color:white;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+    font-weight:bold;
+    font-size:20px;
+    text-align:left;
+    margin-left:2pc;
+    font-family: 'Julee', cursive;
+  }
+  #join-us{
+    margin-top:1pc;
+    font-size:32px;
+    text-align:center;
+    padding:1pc
   }
 `;
 const Right = styled.div`
@@ -68,7 +134,7 @@ const Right = styled.div`
   flex-direction: column;
 
   align-items: center;
-  background-color: lightgrey;
+  background-color: white;
 `;
 const Upload = styled.div`
   display: flex;
@@ -76,7 +142,9 @@ const Upload = styled.div`
   width: 80%;
   height: 40vh;
   margin-top: 15vh;
-  background-color: white;
+  align-items:center;
+  background-color: aliceblue;
+  border-radius:10px;
   #file-inp{
     visibility:hidden;
   }
@@ -121,6 +189,7 @@ const Predict = styled.div`
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    margin:5px;
     &:active {
       transform: scale(0.95);
     }

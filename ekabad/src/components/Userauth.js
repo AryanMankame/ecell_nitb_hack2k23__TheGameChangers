@@ -1,6 +1,7 @@
 import React from "react";
 import * as Components from "./Component";
 import { useNavigate } from "react-router-dom";
+import './styles.css'
 // import { GoogleAuthProvider } from "@firebase/auth";
 const Userauth = () => {
   const navigate = useNavigate();
@@ -56,7 +57,9 @@ const Userauth = () => {
             "Content-type": "application/json; charset=UTF-8"
             }
             })
-          }}>Sigin In</Components.Button>
+            navigate('/threeBtn');
+          }}
+          >Sigin In</Components.Button>
         </Components.Form>
       </Components.SignInContainer>
 
@@ -71,9 +74,10 @@ const Userauth = () => {
           </Components.LeftOverlayPanel>
 
           <Components.RightOverlayPanel signinIn={signIn}>
-            <Components.GhostButton onClick={() => toggle(false)}>
-              Sigin Up
-            </Components.GhostButton>
+            <img id = "logo" src = "elogopn.png"></img>
+            <button id = "btn-fix" onClick={() => { toggle(false)}}>
+              Sign Up
+            </button>
           </Components.RightOverlayPanel>
         </Components.Overlay>
       </Components.OverlayContainer>
