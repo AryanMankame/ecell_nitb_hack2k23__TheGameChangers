@@ -10,7 +10,7 @@ app.use('/orders',orderRouter)
 app.use('/auth',authRouter)
 const mongoose = require('mongoose');
 const password = encodeURIComponent("")
-const connection_url = `mongodb+srv://aryan672002:${password}@cluster0.tqm8j4u.mongodb.net/test?retryWrites=true&w=majority`
+const connection_url = `mongodb+srv://:${password}@cluster0.tqm8j4u.mongodb.net/test?retryWrites=true&w=majority`
 mongoose.connect(connection_url,{ useNewUrlParser: true })
 const db = [{
               mobile:"100",
